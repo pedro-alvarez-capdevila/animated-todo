@@ -20,14 +20,15 @@ interface Props {
 const AnimatedCheckbox = ( props: Props ) => {
   const { checked } = props
   const checkMarkColor = '#000000'
-  const highlightColor = '#ff0000'
+  const highlightColor = 'red'
   const boxOutLineColor = '#000000'
 
   const progress = useSharedValue( 0 );
 
   useEffect(() => {
     progress.value = withTiming( checked ? 1 : 0, {
-      duration: Easing.linear(1000)
+      duration: checked ? 300 : 100,
+      easing: Easing.linear
     })
   }, [checked])
 
@@ -39,14 +40,12 @@ const AnimatedCheckbox = ( props: Props ) => {
         [ boxOutLineColor, highlightColor ], 
         'RGB'
       ),
-
       fill: interpolateColor(
         Easing.bezier( 0.16, 1, 0.3, 1)(progress.value),
         [ 0, 1 ],
-        [ '#00000000', 'highlightColor' ], 
+        [ '#00000000', 'green' ], 
         'RGB'
       ),
-
     }), [highlightColor, boxOutLineColor]
   )
 
@@ -62,12 +61,10 @@ const AnimatedCheckbox = ( props: Props ) => {
         animatedProps={animatedBoxProps}
       />
       <Path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
         d={checkMarkPath}
         fill="black"
         stroke="black"
-        stroke-width="0.5"
+        strokeWidth="2"
       />
     </Svg>
   )
