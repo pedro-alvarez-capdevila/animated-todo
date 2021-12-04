@@ -4,6 +4,7 @@ import { interpolateColor } from "react-native-reanimated";
 import { useAnimatedProps } from "react-native-reanimated";
 import { useSharedValue } from "react-native-reanimated";
 import Svg, { Path, Rect } from "react-native-svg";
+import AnimatedStroke from "./animated-stroke";
 
 const MARGIN = 10
 const vWidth = 64 + MARGIN
@@ -55,16 +56,19 @@ const AnimatedCheckbox = ( props: Props ) => {
     >
       <AnimatedPath
         d={outLineBoxPath}
-        strokeWidth={2}
+        strokeWidth={3}
         strokeLinejoin="round"
         strokeLinecap="round"
         animatedProps={animatedBoxProps}
       />
-      <Path
+      <AnimatedStroke 
         d={checkMarkPath}
-        fill="black"
-        stroke="black"
-        strokeWidth="2"
+        stroke={checkMarkColor}
+        strokeWidth={4}
+        progress={progress}
+        strokeLinejoin="round"
+        strokeLinecap="round"
+        strokeOpacity={checked ? 1 : 0}
       />
     </Svg>
   )
